@@ -1,9 +1,9 @@
 package model;
 
 public class User {
-   private  Long id;
-   private String name;
-   private boolean isAdmin;
+    private  Long id;
+    private String name;
+    private boolean isAdmin;
 
     public User(Long id, String name, boolean isAdmin) {
         this.id = id;

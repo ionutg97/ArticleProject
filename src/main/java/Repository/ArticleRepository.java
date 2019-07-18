@@ -28,7 +28,11 @@ public class ArticleRepository {
     }
 
     public List<Article> getAllArticles() {
-        return articles;
+        List<Article> newArticles = new ArrayList<Article>();
+        for (Article article : articles) {
+            newArticles.add(article);
+        }
+        return newArticles;
     }
 
     public Article getByTitle(String title) {
