@@ -14,11 +14,15 @@ public class ArticleServiceUseful {
 
 
     //count the paragraphs
-    public int countParagraph(Article article) {
+    public int countParagraph() {
         int numberOfParagraph = 0;
-        for (String contentParagraph : article.getParagraphs()) {
-            if (contentParagraph != null)
-                numberOfParagraph++;
+        for (Article article1 : articleRepository.getAllArticles()) {
+            {
+                for (String contentParagraph : article1.getParagraphs()) {
+                    if (contentParagraph != null)
+                        numberOfParagraph++;
+                }
+            }
         }
         return numberOfParagraph;
     }

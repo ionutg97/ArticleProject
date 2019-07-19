@@ -12,15 +12,13 @@ public class Application {
         ArticleController articleController = new ArticleController(user);
         Scanner in = new Scanner(System.in);
 
-        articleController.creatInitialArticle();
-
         A: while (true) {
             System.out.println("write command: ");
             String command = in.nextLine();
 
             switch (command) {
                 case "display Article":
-                    articleController.displayArticles();
+                    articleController.displayArticle();
                     break;
                 case "add Article":
                     try {
@@ -32,20 +30,8 @@ public class Application {
                     }
                     break;
                 case "search Article":
-                    System.out.println("title article ");
-                    String articleTitle=in.nextLine();
-                    articleController.searchByTitle(articleTitle);
+                    articleController.searchByTitle("title");
                     break;
-                case"sort Article":
-                    articleController.sortArticlesByPriorityOrTitle();
-                    break;
-                case "sort Para":
-                    articleController.sortArticlesByNumberOfParagraph();
-                    break;
-                case "sort Author":
-                    System.out.println("Author name is: ");
-                    String name=in.nextLine();
-                    articleController.groupArticleByAuthor(name);
                 case "exit":
                     break A;
                 default:

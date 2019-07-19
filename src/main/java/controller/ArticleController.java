@@ -13,9 +13,9 @@ public class ArticleController {
         this.user = user;
     }
 
-    public void displayArticles() {
+    public void displayArticle() {
 
-        System.out.println(articleService.displayAllArticles());
+        System.out.println(articleService.displayAllArticle());
     }
 
     public void addArticle() {
@@ -29,25 +29,6 @@ public class ArticleController {
     public void searchByTitle(String title){
 
         System.out.println(articleService.getArticleByTitle(title));
-    }
-
-    public void creatInitialArticle()
-    {
-        articleService.initArticle();
-    }
-
-    public void sortArticlesByPriorityOrTitle()
-    {
-        articleService.sortByPriority();
-    }
-
-    public void sortArticlesByNumberOfParagraph(){
-        articleService.sortByNumberOfParagraph();
-    }
-
-    public void groupArticleByAuthor(String name)
-    {
-        articleService.groupArticleByAuthor(name);
     }
 
 }
