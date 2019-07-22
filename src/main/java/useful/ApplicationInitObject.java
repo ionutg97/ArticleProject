@@ -5,14 +5,22 @@ import model.Author;
 import model.Image;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ApplicationInitObject {
 
     public static Image imageA1 = new Image("C:\\Users\\igalan\\isd2019internship_java\\JavaBasic\\src\\main\\resources\\",
             "picture HEADPHONES");
-    public static Author author1 = new Author("Theo Nicolakis",
+    public static Author author1 = new Author(
+            (long)2001,
+            "Theo",
+            "Nicolakis",
+            "0723456675",
+            "Male",
+            new ArrayList<Article>(),
             imageA1,
             "freelance");
 
@@ -39,13 +47,20 @@ public class ApplicationInitObject {
             "https://www.youtube.com/watch?v=nuNYtj8keaE",
             Priority.IMPORTANT,
             author1,
-            new Date(2019,7,15,10,34),
-            new Date(2019, 7, 16)
+
+            LocalDateTime.of(2019, Month.JULY, 16, 19, 30, 40),
+            LocalDateTime.of(2019, Month.JULY, 17, 12, 20, 00)
     );
 
     public static Image imageA2 = new Image("C:\\Users\\igalan\\isd2019internship_java\\JavaBasic\\src\\main\\resources\\",
             "picture Z-EDGE");
-    public static Author author2 = new Author("Jhon Jacobi",
+    public static Author author2 = new Author(
+            (long)2002,
+            "Jhon",
+            "Jacobi",
+            "0798765432",
+            "Male",
+            new ArrayList<Article>(),
             imageA2,
             "freelance");
 
@@ -69,14 +84,19 @@ public class ApplicationInitObject {
             "https://www.youtube.com/watch?v=nuNYtj8keaE",
             Priority.MID_IMPORTANT,
             author2,
-            new Date(2019,7,16,11,00),
-            new Date(2019, 7, 17)
+            LocalDateTime.of(2019, Month.JULY, 17, 18, 00, 00),
+            LocalDateTime.of(2019, Month.JULY, 17, 12, 30, 40)
     );
 
     public static Image imageA3 = new Image("C:\\Users\\igalan\\isd2019internship_java\\JavaBasic\\src\\main\\resources\\",
             "picture Z-EDGE");
-    public static Author author3 = new Author("Jhon Jacobi",
-            imageA3,
+    public static Author author3 = new Author((long)2003,
+            "Pike",
+            "Mike",
+            "0799123411",
+            "Male",
+            new ArrayList<Article>(),
+            imageA2,
             "freelance");
 
     public static LinkedList<String> paragraphsA3= new LinkedList<>();
@@ -95,9 +115,26 @@ public class ApplicationInitObject {
             imageA3,
             "https://www.youtube.com/watch?v=nuNYtj8keaE",
             Priority.MID_IMPORTANT,
-            author3,
-            new Date(2019,7,16,11,00),
-            new Date(2019, 7, 17)
+            author2,
+            LocalDateTime.of(2019, Month.JULY, 15, 00, 00, 40),
+            LocalDateTime.of(2019, Month.JULY, 17, 12, 30, 40)
     );
 
+    public static Author author4 = new Author((long)2004,
+            "Moira",
+            "Alexander",
+            "0799123411",
+            "Male",
+            new ArrayList<Article>(),
+            imageA2,
+            "CIO");
+
+    public static Author author5 = new Author((long)2005,
+            "Evelin",
+            "Loyola",
+            "0799123411",
+            "Female",
+            new ArrayList<Article>(),
+            imageA2,
+            "MACWorld");
 }

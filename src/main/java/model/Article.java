@@ -2,11 +2,13 @@ package model;
 
 import useful.Priority;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
-public class Article extends InformationArticle {
+public class Article extends InformationArticle implements Comparable<Article> {
 
     private Long id;
     private String title;
@@ -19,9 +21,15 @@ public class Article extends InformationArticle {
 
     }
 
-
-    public Article(Long id, String title, LinkedList<String> paragraphs, Image image, String pathYouTube, Priority priority,
-                   Author author, Date publicationDate, Date lastModifyDate) {
+    public Article(Long id,
+                   String title,
+                   LinkedList<String> paragraphs,
+                   Image image,
+                   String pathYouTube,
+                   Priority priority,
+                   Author author,
+                   LocalDateTime publicationDate,
+                   LocalDateTime lastModifyDate) {
 
         super(author, publicationDate, lastModifyDate);
         this.id = id;
@@ -30,6 +38,21 @@ public class Article extends InformationArticle {
         this.image = image;
         this.pathYouTube = pathYouTube;
         this.priority = priority;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return Objects.equals(getTitle(), article.getTitle()) &&
+                getPriority() == article.getPriority() &&
+                Objects.equals(getAuthor(),article.getAuthor());
+    }
+
+    @Override
+    public int hashCode() {
+        return 31*getTitle().hashCode()+getPriority().getValue()+getAuthor().hashCode();
     }
 
     public List<String> getParagraphs() {
@@ -78,5 +101,23 @@ public class Article extends InformationArticle {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public int compareTo(Article article) {
+        if(getPriority().getValue()==article.getPriority().getValue())
+            return getTitle().compareTo(article.getTitle());
+        else
+            return getPriority().getValue()-article.getPriority().getValue();
+    }
+
+    @Override
+    public String toString() {
+        return "Article{"+
+                "author name= "+getAuthor().getNameAuthor()+
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", priority=" + priority +
+                '}';
     }
 }
