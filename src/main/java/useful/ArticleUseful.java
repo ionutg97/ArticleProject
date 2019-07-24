@@ -2,7 +2,6 @@ package useful;
 
 import model.Article;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -10,7 +9,7 @@ public class ArticleUseful {
 
 
     public static Article createNewArticle() {
-        Article article = new Article();
+        Article article = new Article.ArticleBuilder().build();
         Scanner in = new Scanner(System.in);
 
         System.out.println("Enter a id");
@@ -29,6 +28,7 @@ public class ArticleUseful {
 
         return article;
     }
+
 
 
 

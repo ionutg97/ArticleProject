@@ -1,11 +1,11 @@
-package Repository;
+package repository;
 
-import exception.ArticleTitleNotFoundException;
 import model.Article;
 import model.Author;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ArticleRepository {
 
@@ -15,29 +15,38 @@ public class ArticleRepository {
         articles.add(article);
     }
 
-    public Article getArticleByAuthor(Author author) {
-        if (author != null) {
+    public Optional<Article> getArticleByAuthor(Optional<Author> author) {
+        if (author.isPresent()) {
             for (Article article : articles) {
                 if (article.getAuthor().equals(author))
-                    return article;
+                    return Optional.of(article);
             }
-        } else {
-            throw new NullPointerException("Invalid author");
         }
-        return null;
+        return Optional.empty();
     }
 
-    public List<Article> getAllArticles() {
-        return articles;
+    public Optional<List<Article>> getAllArticles() {
+        List<Article> newArticles = new ArrayList<Article>();
+        for (Article article : articles) {
+            newArticles.add(article);
+        }
+        return Optional.of(newArticles);
     }
 
-    public Article getByTitle(String title) {
+    public Optional<Article> getArticleByTitle(String title) {
         for (Article article : articles) {
             if (article.getTitle().equals(title))
-                return article;
-
+                return Optional.of(article);
         }
-        throw new ArticleTitleNotFoundException("The article was not found");
+        return Optional.empty();
+    }
+
+    public Optional<Article> getArticleById(Long id) {
+        for (Article article : articles) {
+            if (article.getId().equals(id))
+               return Optional.of(article);
+        }
+        return Optional.empty();
     }
 
 }

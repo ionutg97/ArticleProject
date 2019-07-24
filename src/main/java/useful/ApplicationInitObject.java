@@ -39,18 +39,18 @@ public class ApplicationInitObject {
 
     }
 
-    public static Article article1 = new Article(
+    public static Article article1 = new Article.ArticleBuilder(
             (long)1001,
             "BEST HEADPHONES",
             paragraphsA1,
-            imageA1,
-            "https://www.youtube.com/watch?v=nuNYtj8keaE",
             Priority.IMPORTANT,
             author1,
-
             LocalDateTime.of(2019, Month.JULY, 16, 19, 30, 40),
             LocalDateTime.of(2019, Month.JULY, 17, 12, 20, 00)
-    );
+            )
+            .setImage( imageA1)
+            .setPathYouTube("https://www.youtube.com/watch?v=nuNYtj8keaE")
+            .build();
 
     public static Image imageA2 = new Image("C:\\Users\\igalan\\isd2019internship_java\\JavaBasic\\src\\main\\resources\\",
             "picture Z-EDGE");
@@ -76,17 +76,17 @@ public class ApplicationInitObject {
 
     }
 
-    public static Article article2 = new Article(
+    public static Article article2 = new Article.ArticleBuilder(
             (long)1002,
             "Z-EDGE F1 DASH",
             paragraphsA2,
-            imageA2,
-            "https://www.youtube.com/watch?v=nuNYtj8keaE",
             Priority.MID_IMPORTANT,
             author2,
             LocalDateTime.of(2019, Month.JULY, 17, 18, 00, 00),
-            LocalDateTime.of(2019, Month.JULY, 17, 12, 30, 40)
-    );
+            LocalDateTime.of(2019, Month.JULY, 17, 12, 30, 40))
+            .setImage( imageA2)
+            .setPathYouTube("https://www.youtube.com/watch?v=nuNYtj8keaE")
+            .build();
 
     public static Image imageA3 = new Image("C:\\Users\\igalan\\isd2019internship_java\\JavaBasic\\src\\main\\resources\\",
             "picture Z-EDGE");
@@ -108,17 +108,17 @@ public class ApplicationInitObject {
 
     }
 
-    public static Article article3 = new Article(
+    public static Article article3 = new Article.ArticleBuilder(
             (long)1003,
             "X-EDGE F1 DASH",
             paragraphsA3,
-            imageA3,
-            "https://www.youtube.com/watch?v=nuNYtj8keaE",
             Priority.MID_IMPORTANT,
             author2,
             LocalDateTime.of(2019, Month.JULY, 15, 00, 00, 40),
-            LocalDateTime.of(2019, Month.JULY, 17, 12, 30, 40)
-    );
+            LocalDateTime.of(2019, Month.JULY, 17, 12, 30, 40))
+            .setImage(imageA3)
+            .setPathYouTube("https://www.youtube.com/watch?v=nuNYtj8keaE")
+            .build();
 
     public static Author author4 = new Author((long)2004,
             "Moira",

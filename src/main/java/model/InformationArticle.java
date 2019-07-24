@@ -1,17 +1,17 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public abstract class InformationArticle {
     private Author author;
-    private Date publicationDate;
-    private Date lastModifyDate;
+    private LocalDateTime publicationDate;
+    private LocalDateTime lastModifyDate;
 
-    public InformationArticle() {
-
+    public InformationArticle(){
+        
     }
 
-    public InformationArticle(Author author, Date publicationDate, Date lastModifyDate) {
+    public InformationArticle(Author author, LocalDateTime publicationDate, LocalDateTime lastModifyDate) {
         this.author = author;
         this.publicationDate = publicationDate;
         this.lastModifyDate = lastModifyDate;
@@ -25,19 +25,19 @@ public abstract class InformationArticle {
         this.author = author;
     }
 
-    public Date getPublicationDate() {
+    public LocalDateTime getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(Date publicationDate) {
+    public void setPublicationDate(LocalDateTime publicationDate) {
         this.publicationDate = publicationDate;
     }
 
-    public Date getLastModifyDate() {
+    public LocalDateTime getLastModifyDate() {
         return lastModifyDate;
     }
 
-    public void setLastModifyDate(Date lastModifyDate) {
+    public void setLastModifyDate(LocalDateTime lastModifyDate) {
         this.lastModifyDate = lastModifyDate;
     }
 }

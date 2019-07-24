@@ -27,7 +27,9 @@ public class Application {
 
             switch (command) {
                 case "display Article":
-                    articleController.displayArticles();
+                    System.out.println(
+                            articleController.printInformation(
+                                    articleController.displayArticles()));
                     break;
                 case "add Article":
                     try {
@@ -39,33 +41,43 @@ public class Application {
                 case "search Article":
                     System.out.println("title article ");
                     String articleTitle = in.nextLine();
-                    articleController.searchByTitle(articleTitle);
+                    System.out.println(articleController.searchByTitle(articleTitle));
                     break;
                 case "sort Article":
-                    articleController.sortArticlesByPriorityOrTitle();
+                    System.out.println(
+                            articleController.printInformation(
+                                    articleController.sortArticlesByPriorityOrTitle()));
                     break;
                 case "sort Para":
-                    articleController.sortArticlesByNumberOfParagraph();
+                    System.out.println(
+                            articleController.printInformation(
+                                    articleController.sortArticlesByNumberOfParagraph()));
                     break;
                 case "group Author":
                     System.out.println("Author name is: ");
                     String name = in.nextLine();
-                    articleController.groupArticlesByAuthor(name);
+                    System.out.println(
+                            articleController.printInformation(
+                                    articleController.groupArticlesByAuthor(name)));
                     break;
                 case "sort Priority":
                     System.out.println("Priority number is: ");
-                    int priority = Integer.parseInt(in.nextLine());
-                    articleController.sortArticlesByPriority(priority);
+                    Integer priority = Integer.parseInt(in.nextLine());
+                    System.out.println(
+                            articleController.printInformation(
+                                    articleController.groupArticlesByPriority(priority)));
                     break;
                 case "difference":
                     System.out.println("The ID is: ");
                     Long id = Long.parseLong(in.nextLine());
-                    articleController.articleDifferenceBetweenDate(id);
+                    System.out.println("Difference between  publication date and last modify date is: " +
+                            articleController.getTimeDifferenceBetweenDate(id));
                     break;
                 case "concatenate":
                     System.out.println("The ID is: ");
                     Long id1 = Long.parseLong(in.nextLine());
-                    articleController.concatenateInformationFromArticle(id1);
+                    System.out.println("Useful information about article: " +
+                            articleController.concatenateInformationFromArticle(id1));
                     break;
 
                 //----------------------------Stream TASK calls----------------------------------------

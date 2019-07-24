@@ -1,16 +1,13 @@
 package service;
 
-import Repository.ArticleRepository;
-import exception.ArticleTitleNotFoundException;
+import repository.ArticleRepository;
+
 import model.Article;
 import useful.ApplicationInitObject;
 import useful.ArticleUseful;
 import useful.Calculation;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -24,46 +21,20 @@ public class ArticleService {
     }
 
     public void createArticle() {
-        Article article = ArticleUseful.createNewArticle();
-        articleRepository.addArticle(article);
+        Optional<Article> article = Optional.of(ArticleUseful.createNewArticle());
+        if (article.isPresent())
+            articleRepository.addArticle(article.get());
     }
 
-    //display all the article information
-    public StringBuilder displayAllArticles() {
-        StringBuilder allInformation = new StringBuilder();
 
-        for (Article article : articleRepository.getAllArticles()) {
-            allInformation.append("\n\n The id is ").append(article.getId());
-            allInformation.append("\n The author is ").append(article.getAuthor().getNameAuthor());
-            allInformation.append("\n The title is ").append(article.getTitle());
-
-            for (String contentParagraph : article.getParagraphs()) {
-                if (contentParagraph != null) {
-
-                    allInformation.append("\n All paragraph: ");
-                    allInformation.append(contentParagraph);
-
-                }
-            }
-            allInformation.append("\n The number of paragraphs: ").append(articleServiceUseful.countParagraph(article));
-            allInformation.append("\n The image is: ").append(article.getImage().getDescription());
-            allInformation.append("\n The priority is: ").append(article.getPriority().getValue());
-        }
-        return allInformation;
+    public List<Article> displayAllArticles() {
+        List<Article> articles = articleRepository.getAllArticles().get();
+        return articles;
     }
 
-    public String getArticleByTitle(String title) {
-        StringBuilder allInformation = new StringBuilder();
-        try {
-            Article article = articleRepository.getByTitle(title);
-            allInformation.append("\n title is ").append(article.getTitle());
-            allInformation.append("\n id is ").append(article.getId());
-            allInformation.append("\n author is ").append(article.getAuthor().getNameAuthor());
-
-        } catch (ArticleTitleNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        return allInformation.toString();
+    public Article searchArticleByTitle(String title) {
+        Article article = articleRepository.getArticleByTitle(title).get();
+        return article;
 
     }
 
@@ -71,82 +42,76 @@ public class ArticleService {
         articleRepository.addArticle(ApplicationInitObject.article1);
         articleRepository.addArticle(ApplicationInitObject.article2);
         articleRepository.addArticle(ApplicationInitObject.article3);
-
     }
 
-    public void sortByPriority() {
-        ArrayList<Article> sortedArticle = (ArrayList<Article>) articleRepository.getAllArticles();
+    public List<Article> sortByPriority() {
+        List<Article> sortedArticle = articleRepository.getAllArticles().get();
+
         Collections.sort(sortedArticle);
-        System.out.println(articleServiceUseful.displayPartialInformation(sortedArticle));
 
+        return sortedArticle;
     }
 
-    public void sortByNumberOfParagraph() {
-        ArrayList<Article> sortedArticle = new ArrayList<Article>();
-        sortedArticle = (ArrayList<Article>) articleRepository.getAllArticles();
-        Collections.sort(sortedArticle, Comparator.comparing(article -> ArticleServiceUseful.countParagraph(article)));
+    public List<Article> sortByNumberOfParagraph() {
+        List<Article> sortedArticle = articleRepository.getAllArticles().get();
 
-        System.out.println(articleServiceUseful.displayPartialInformation(sortedArticle));
+        Collections.sort(sortedArticle,
+                Comparator.comparing(article -> ArticleServiceUseful.countParagraph(article)));
+
+        return sortedArticle;
     }
 
 
-    public void groupArticleByAuthor(String name) {
-        ArrayList<Article> sortedArticle = new ArrayList<Article>();
+    public List<Article> groupArticleByAuthor(String name) {
+        List<Article> sortedArticle = new ArrayList<Article>();
 
-        for (Article article : articleRepository.getAllArticles()) {
+        for (Article article : articleRepository.getAllArticles().get()) {
             if (article.getAuthor().getNameAuthor().equals(name))
                 sortedArticle.add(article);
         }
 
-        System.out.println(articleServiceUseful.displayPartialInformation(sortedArticle));
+        return sortedArticle;
     }
 
-    public void displayByPriority(int priority) {
+    public List<Article> groupByPriority(Integer priority) {
+        List<Article> sortedArticle =
+                articleRepository.getAllArticles().get()
+                        .stream()
+                        .filter(article -> article.getPriority().getValue() == priority)
+                        .collect(Collectors.toList());
 
-//        Predicate<Article> priorityFilter = (article) -> article.getPriority().getValue() == priority;
-//        List<Article> articleSorted= articleRepository.getAllArticles()
-//                .stream()
-//                .filter(priorityFilter)
-//                .collect(Collectors.toList());
-//
-        List<Article> sortedArticle = articleRepository.getAllArticles()
-                .stream()
-                .filter(article -> article.getPriority().getValue() == priority)
-                .collect(Collectors.toList());
-
-        System.out.println(articleServiceUseful.displayPartialInformation((ArrayList<Article>) sortedArticle));
-
+        return sortedArticle;
     }
 
-    public void differenceBetweenDate(Long id) {
+    public Integer getTimeDifferenceBetweenDate(Long id) {
+        Article article = articleRepository.getArticleById(id).get();
 
-        Article article = articleRepository.getArticleById(id);
         Calculation calculation = (myArticle) -> (myArticle.getPublicationDate().getHour() - myArticle.getLastModifyDate().getHour());
 
-        System.out.println("Difference between  publication date and last modify date is: " +
-                calculation.calculation(article));
+        return calculation.calculation(article);
 
     }
 
-    public void concatenateInformationAboutArticle(Long Id) {
-        Article article = articleRepository.getArticleById(Id);
+    public String concatenateInformationAboutArticle(Long Id) {
+        Article article = articleRepository.getArticleById(Id).get();
+
         Function<String, Function<Long, Function<String, String>>> concatenate =
                 title
                         -> id
                         -> authorName
-                        -> ""+ authorName + " "+id + " " +title;
+                        -> "" + authorName + " " + id + " " + title;
 
         String result = concatenate.apply(article.getTitle())
                 .apply(article.getId())
                 .apply(article.getAuthor().getNameAuthor());
 
-        System.out.println("Useful information about article: " + result);
+        return result;
     }
 
-
-
-
-
+    public String printInformation(List<Article> articles)
+    {
+       return articleServiceUseful.displayInformationAboutArticles((ArrayList<Article>)articles);
+    }
 }
 
 
